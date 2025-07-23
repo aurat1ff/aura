@@ -7,7 +7,7 @@ def map_role(role):
     else:
         return role
 
-def fetch_gemini_response:
+def fetch_gemini_response(
     response = st.session_state.chat_session.model.generate_content(
     user_query,
     timeout=300
