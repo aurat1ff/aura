@@ -1,11 +1,8 @@
-import os
+import google.generativeai as genai
 import streamlit as st
-from dotenv import load_dotenv
-import google.generativeai as gpt
-from functions import*
+import os
 
-# Load environment variables
-load_dotenv()
+
 
 # Configure Streamlit page settings
 st.set_page_config(
@@ -14,15 +11,24 @@ st.set_page_config(
     layout="wide",  # Page layout option
 )
 
-API_KEY = os.getenv("GOOGLE_API_KEY")
+API_KEY = os.environ.get("GEMINI_API_KEY")
+genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
 
 # Set up Google Gemini-Pro AI model
 gpt.configure(api_key=API_KEY)
 model = gpt.GenerativeModel('gemini-1.5-flash')
 
-# Initialize chat session in Streamlit if not already present
+# --- Model Initialization with Timeout ---
 if "chat_session" not in st.session_state:
-    st.session_state.chat_session = model.start_chat(history=[])
+    # Initialize the model with a longer timeout
+    st.session_state.chat_session = genai.GenerativeModel(
+        "gemini-1.5-flash", # Or "gemini-2.5-flash" if you prefer
+        generation_config={"temperature": 0.7}, # Example: add other generation configs here
+        # Pass request_options to set the timeout for the client
+        request_options={"timeout": 600} # 10 minutes (600 seconds)
+    )
+    # Start a chat session with the model
+    st.session_state.chat_session = st.session_state.chat_session.start_chat(history=[])
 
 # Display the chatbot's title on the page
 st.title("🤖 Set your inner Aura free!")
