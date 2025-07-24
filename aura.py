@@ -11,12 +11,8 @@ st.set_page_config(
     layout="wide",  # Page layout option
 )
 
-API_KEY = os.environ.get("GEMINI_API_KEY")
-genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
 
-# Set up Google Gemini-Pro AI model
-gpt.configure(api_key=API_KEY)
-model = gpt.GenerativeModel('gemini-1.5-flash')
+genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
 
 # --- Model Initialization with Timeout ---
 if "chat_session" not in st.session_state:
