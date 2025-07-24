@@ -1,9 +1,2 @@
-[server]
-# TTL in seconds for sessions whose websockets have been disconnected.
-#
-# The server may choose to clean up session state, uploaded files, etc
-# for a given session with no active websocket connection at any point
-# after this time has passed.
-#
-# Default: 120
-disconnectedSessionTTL = 1200
+[api]
+timeout_seconds = 600
