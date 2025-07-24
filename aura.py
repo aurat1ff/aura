@@ -12,7 +12,8 @@ st.set_page_config(
 )
 
 
-genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
+import google.generativeai as genai
+
 
 # --- Model Initialization with Timeout ---
 if "chat_session" not in st.session_state:
