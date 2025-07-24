@@ -17,7 +17,10 @@ genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
 # --- Model Initialization with Timeout ---
 if "chat_session" not in st.session_state:
     # Initialize the model with a longer timeout
-    st.session_state.chat_session = genai.GenerativeModel("gemini-1.5-flash", generation_config={"temperature": 0.7}, request_options={"timeout": 600} 
+    st.session_state.chat_session = genai.GenerativeModel(
+        "gemini-1.5-flash",
+        generation_config={"temperature": 0.7},
+        request_options={"timeout": 600} 
     )
     # Start a chat session with the model
     st.session_state.chat_session = st.session_state.chat_session.start_chat(history=[])
