@@ -1,8 +1,6 @@
 import google.generativeai as genai
 import streamlit as st
-import os
-
-
+import os # Import os to access environment variables
 
 # Configure Streamlit page settings
 st.set_page_config(
@@ -11,15 +9,22 @@ st.set_page_config(
     layout="wide",  # Page layout option
 )
 
-
-import google.generativeai as genai
-
+# --- API Key Configuration ---
+# Assuming you're setting your API key via environment variable or st.secrets
+# For environment variable (recommended for Workbench/local):
+# genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
+# For Streamlit Cloud (using secrets.toml):
+# genai.configure(api_key=st.secrets["gemini"]["api_key"])
 
 # --- Model Initialization with Timeout ---
 if "chat_session" not in st.session_state:
     # Initialize the model with a longer timeout
     st.session_state.chat_session = genai.GenerativeModel(
-    "gemini-1.5-flash", generation_config={"temperature": 0.7}, request_options={"timeout": 600})
+        "gemini-1.5-flash", # Or "gemini-2.5-flash" if you prefer
+        generation_config={"temperature": 0.7}, # Example: add other generation configs here
+        # Pass request_options to set the timeout for the client
+        request_options={"timeout": 600} # 10 minutes (600 seconds)
+    )
     # Start a chat session with the model
     st.session_state.chat_session = st.session_state.chat_session.start_chat(history=[])
 
