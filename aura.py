@@ -23,7 +23,7 @@ if "chat_session" not in st.session_state:
         "gemini-1.5-flash", # Or "gemini-2.5-flash" if you prefer
         generation_config={"temperature": 0.7}, # Example: add other generation configs here
         # Pass request_options to set the timeout for the client
-        request_options={"timeout": 600} # 10 minutes (600 seconds)
+       # request_options={"timeout": 600} # 10 minutes (600 seconds)
     )
     # Start a chat session with the model
     st.session_state.chat_session = st.session_state.chat_session.start_chat(history=[])
@@ -52,3 +52,4 @@ if user_input:
     # Add user and assistant messages to the chat history
     st.session_state.chat_session.history.append({"role": "user", "content": user_input})
     st.session_state.chat_session.history.append({"role": "model", "content": gemini_response})
+
